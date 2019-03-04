@@ -1,0 +1,6 @@
+#!/bin/bash
+
+if [ $TRAVIS_OS_NAME = "osx" ]; then
+  xcodebuild -scheme StubKit-Package -project StubKit.xcodeproj -sdk macosx -enableCodeCoverage YES build test
+fi
+swift test
