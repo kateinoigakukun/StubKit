@@ -24,6 +24,7 @@
 		E00F66C7222D59F100D22C68 /* Number.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00F66C6222D59F100D22C68 /* Number.swift */; };
 		E00F66C9222D65C500D22C68 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00F66C8222D65C500D22C68 /* String.swift */; };
 		E00F66CB222D668600D22C68 /* Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00F66CA222D668600D22C68 /* Misc.swift */; };
+		E00F66CD222D72A500D22C68 /* DefaultStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00F66CC222D72A500D22C68 /* DefaultStubbableTests.swift */; };
 		OBJ_28 /* Decoders.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Decoders.swift */; };
 		OBJ_29 /* EnumStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* EnumStub.swift */; };
 		OBJ_30 /* Injector.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* Injector.swift */; };
@@ -57,6 +58,7 @@
 		E00F66C6222D59F100D22C68 /* Number.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Number.swift; sourceTree = "<group>"; };
 		E00F66C8222D65C500D22C68 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		E00F66CA222D668600D22C68 /* Misc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Misc.swift; sourceTree = "<group>"; };
+		E00F66CC222D72A500D22C68 /* DefaultStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultStubbableTests.swift; sourceTree = "<group>"; };
 		OBJ_10 /* EnumStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumStub.swift; sourceTree = "<group>"; };
 		OBJ_11 /* Injector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injector.swift; sourceTree = "<group>"; };
 		OBJ_12 /* StubKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubKit.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 			children = (
 				OBJ_16 /* DecodersTests.swift */,
 				OBJ_17 /* StubKitTests.swift */,
+				E00F66CC222D72A500D22C68 /* DefaultStubbableTests.swift */,
 				OBJ_18 /* XCTestManifests.swift */,
 			);
 			name = StubKitTests;
@@ -270,6 +273,7 @@
 			files = (
 				OBJ_50 /* DecodersTests.swift in Sources */,
 				OBJ_51 /* StubKitTests.swift in Sources */,
+				E00F66CD222D72A500D22C68 /* DefaultStubbableTests.swift in Sources */,
 				OBJ_52 /* XCTestManifests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
