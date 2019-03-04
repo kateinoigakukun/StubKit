@@ -16,7 +16,6 @@ final class DefaultStubbableTests: XCTestCase {
         _ = UInt.defaultStub()
         _ = Float.defaultStub()
         _ = Double.defaultStub()
-        _ = Float80.defaultStub()
         _ = String.defaultStub()
         _ = Character.defaultStub()
         _ = Bool.defaultStub()

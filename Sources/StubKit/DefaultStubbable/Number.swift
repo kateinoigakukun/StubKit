@@ -70,9 +70,3 @@ extension Double: DefaultStubbable {
         return 1.6180339887
     }
 }
-
-extension Float80: DefaultStubbable {
-    static func defaultStub() -> Float80 {
-        return 1.6180339887
-    }
-}
