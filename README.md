@@ -66,10 +66,10 @@ StubKit mainly uses two techniques.
 - Traverse using `Decoder` protocol.
 - Inject value with non-mutable `KeyPath`.
 
-### Traverse using `Decoder` protocol
+### Traverse struct using `Decoder` protocol
 ![](./resources/tree.png)
 
-Swift has `Decodable` protocol and if a type conforms to `Decodable`, Swift compiler emit auto generated code internally. So we can decode a JSON to Swift struct without any configuration. StubKit uses this system to construct instance through `Decoder`. `Decoder` is a protocol which provide a value by key or index like `JSONDecoder`. If we pass the `Decoder` which just provide a stub value recursively, we can instantiate any kind of `Decodable` instance.
+Swift has `Decodable` protocol and if a type conforms to `Decodable`, Swift compiler generates some code to decode internally. So we can decode a JSON to Swift struct without any configuration. StubKit uses this system to construct instance through `Decoder`. `Decoder` is a protocol which provide a value by key or index like `JSONDecoder`. If we pass the `Decoder` which just provide a stub value recursively, we can instantiate any kind of `Decodable` instance.
 
 
 ### Inject value with non-mutable `KeyPath`
