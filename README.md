@@ -22,7 +22,7 @@ pod 'StubKit'
 
 ### Getting started
 
-You can instantiate any kind of `Codable` with a single line!
+You can instantiate any kind of `Decodable` with a single line.
 
 ```swift
 import StubKit
@@ -45,11 +45,12 @@ You can customize properties even if the property is defined as `let`.
 let maleUser = try Stub.make(User.self) {
   $0.set(\.sex, value: .male)
 }
+// User(id: 1234, name: "This is Stub String", sex: .male)
 ```
 
 ### Using `Stubbable`
 
-If you customize default stub, please conform `Stubbable`.
+If you want to customize the default stub value, please conform `Stubbable`.
 ```swift
 extension URL: Stubbable {
   static func stub() -> URL {
@@ -57,3 +58,20 @@ extension URL: Stubbable {
   }
 }
 ```
+
+
+## How does it work
+
+StubKit mainly uses two techniques.
+- Traverse using `Decoder` protocol.
+- Inject value with non-mutable `KeyPath`.
+
+### Traverse using `Decoder` protocol
+![](./resources/tree.png)
+
+Swift has `Decodable` protocol and if a type conforms to `Decodable`, Swift compiler emit auto generated code internally. So we can decode a JSON to Swift struct without any configuration. StubKit uses this system to construct instance through `Decoder`. `Decoder` is a protocol which provide a value by key or index like `JSONDecoder`. If we pass the `Decoder` which just provide a stub value recursively, we can instantiate any kind of `Decodable` instance.
+
+
+### Inject value with non-mutable `KeyPath`
+
+I know it's only natural but, Swift can't mutate `let` defined property. But Swift has `MemoryLayout<T>.offset` which provide the offset to the property from its own address. So actually in memory we can mutate `let` property.
