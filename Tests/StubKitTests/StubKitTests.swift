@@ -68,38 +68,38 @@ class EnumStubTests: XCTestCase {
         enum E {
             case case1
         }
-        XCTAssertTrue(EnumStub.isEnum(E.self))
+        XCTAssertTrue(EnumStubProvider.isEnum(E.self))
     }
 
     func testIsEnumWithEmptyEnum() {
         enum E {}
-        XCTAssertTrue(EnumStub.isEnum(E.self))
+        XCTAssertTrue(EnumStubProvider.isEnum(E.self))
     }
 
     func testIsEnumWithAssocValue() {
         enum E1 {
             case case1(String)
         }
-        XCTAssertTrue(EnumStub.isEnum(E1.self))
+        XCTAssertTrue(EnumStubProvider.isEnum(E1.self))
         enum E2 {
             case case1(String, String)
         }
-        XCTAssertTrue(EnumStub.isEnum(E2.self))
+        XCTAssertTrue(EnumStubProvider.isEnum(E2.self))
     }
 
     func testIsEnumWithRawValue() {
         enum E: String {
             case case1 = "case1"
         }
-        XCTAssertTrue(EnumStub.isEnum(E.self))
+        XCTAssertTrue(EnumStubProvider.isEnum(E.self))
     }
 
     func testIsNotEnum() {
         struct S {}
         class C {}
-        XCTAssertFalse(EnumStub.isEnum(S.self))
-        XCTAssertFalse(EnumStub.isEnum(C.self))
-        XCTAssertFalse(EnumStub.isEnum(CustomStringConvertible.self))
+        XCTAssertFalse(EnumStubProvider.isEnum(S.self))
+        XCTAssertFalse(EnumStubProvider.isEnum(C.self))
+        XCTAssertFalse(EnumStubProvider.isEnum(CustomStringConvertible.self))
     }
 
     /// If failed, please see `Enum` memory layout(https://github.com/apple/swift/blob/master/docs/ABI/TypeLayout.rst#c-like-enums)
@@ -110,7 +110,7 @@ class EnumStubTests: XCTestCase {
         }
 
         do {
-            let e = try EnumStub.stub(E.self)
+            let e = try EnumStubProvider.stub(of: E.self)
             XCTAssertEqual(e, .case1)
         } catch {
             XCTFail(String(describing: error))
@@ -122,8 +122,8 @@ class EnumStubTests: XCTestCase {
             case case1(T)
         }
 
-        XCTAssertThrowsError(try EnumStub.stub(E<Int>.self)) { error in
-            guard let enumStubError = error as? EnumStub.Error else {
+        XCTAssertThrowsError(try EnumStubProvider.stub(of: E<Int>.self)) { error in
+            guard let enumStubError = error as? EnumStubProvider.Error else {
                 XCTFail(String(describing: error))
                 return
             }
@@ -140,7 +140,7 @@ class EnumStubTests: XCTestCase {
             case case1
         }
         do {
-            let e = try EnumStub.stub(E.self)
+            let e = try EnumStubProvider.stub(of: E.self)
             XCTAssertEqual(e, .case1)
         } catch {
             XCTFail(String(describing: error))
@@ -151,8 +151,8 @@ class EnumStubTests: XCTestCase {
         enum E {
             case case1(String)
         }
-        XCTAssertThrowsError(try EnumStub.stub(E.self)) { error in
-            guard let enumStubError = error as? EnumStub.Error else {
+        XCTAssertThrowsError(try EnumStubProvider.stub(of: E.self)) { error in
+            guard let enumStubError = error as? EnumStubProvider.Error else {
                 XCTFail(String(describing: error))
                 return
             }
@@ -166,8 +166,8 @@ class EnumStubTests: XCTestCase {
 
     func testStubNoCasesEnum() {
         enum E {}
-        XCTAssertThrowsError(try EnumStub.stub(E.self)) { error in
-            guard let enumStubError = error as? EnumStub.Error else {
+        XCTAssertThrowsError(try EnumStubProvider.stub(of: E.self)) { error in
+            guard let enumStubError = error as? EnumStubProvider.Error else {
                 XCTFail(String(describing: error))
                 return
             }
@@ -181,8 +181,8 @@ class EnumStubTests: XCTestCase {
 
     func testStubNotEnum() {
         struct S {}
-        XCTAssertThrowsError(try EnumStub.stub(S.self)) { error in
-            guard let enumStubError = error as? EnumStub.Error else {
+        XCTAssertThrowsError(try EnumStubProvider.stub(of: S.self)) { error in
+            guard let enumStubError = error as? EnumStubProvider.Error else {
                 XCTFail(String(describing: error))
                 return
             }
@@ -200,32 +200,32 @@ class EnumStubTests: XCTestCase {
         enum E {
             case case1
         }
-        XCTAssertEqual(EnumStub.enumKind(E.self), .noPayload)
+        XCTAssertEqual(EnumStubProvider.enumKind(E.self), .noPayload)
     }
 
     func testEnumKindWithEmptyEnum() {
         enum E {}
-        XCTAssertEqual(EnumStub.enumKind(E.self), .noCases)
+        XCTAssertEqual(EnumStubProvider.enumKind(E.self), .noCases)
     }
 
     func testEnumKindWithAssocValue() {
         enum E {
             case case1(String)
         }
-        XCTAssertEqual(EnumStub.enumKind(E.self), .payload)
+        XCTAssertEqual(EnumStubProvider.enumKind(E.self), .payload)
     }
 
     func testEnumKindWithRawValue() {
         enum E: String {
             case case1
         }
-        XCTAssertEqual(EnumStub.enumKind(E.self), .noPayload)
+        XCTAssertEqual(EnumStubProvider.enumKind(E.self), .noPayload)
     }
 
     func testEnumKindWithGeneric() {
         enum E<T> {
             case case1(T)
         }
-        XCTAssertEqual(EnumStub.enumKind(E<Int>.self), .payload)
+        XCTAssertEqual(EnumStubProvider.enumKind(E<Int>.self), .payload)
     }
 }

@@ -25,8 +25,11 @@
 		E00F66C9222D65C500D22C68 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00F66C8222D65C500D22C68 /* String.swift */; };
 		E00F66CB222D668600D22C68 /* Misc.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00F66CA222D668600D22C68 /* Misc.swift */; };
 		E00F66CD222D72A500D22C68 /* DefaultStubbableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E00F66CC222D72A500D22C68 /* DefaultStubbableTests.swift */; };
+		E0101A7F2234981F00CF815E /* StubProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0101A7E2234981F00CF815E /* StubProvider.swift */; };
+		E0101A842234A06900CF815E /* BuiltinStubProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0101A832234A06900CF815E /* BuiltinStubProvider.swift */; };
+		E0101A862234A38300CF815E /* StubbableProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0101A852234A38200CF815E /* StubbableProvider.swift */; };
 		OBJ_28 /* Decoders.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_9 /* Decoders.swift */; };
-		OBJ_29 /* EnumStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* EnumStub.swift */; };
+		OBJ_29 /* EnumStubProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_10 /* EnumStubProvider.swift */; };
 		OBJ_30 /* Injector.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* Injector.swift */; };
 		OBJ_31 /* StubKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* StubKit.swift */; };
 		OBJ_32 /* Stubbable.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* Stubbable.swift */; };
@@ -59,7 +62,10 @@
 		E00F66C8222D65C500D22C68 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		E00F66CA222D668600D22C68 /* Misc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Misc.swift; sourceTree = "<group>"; };
 		E00F66CC222D72A500D22C68 /* DefaultStubbableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultStubbableTests.swift; sourceTree = "<group>"; };
-		OBJ_10 /* EnumStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumStub.swift; sourceTree = "<group>"; };
+		E0101A7E2234981F00CF815E /* StubProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubProvider.swift; sourceTree = "<group>"; };
+		E0101A832234A06900CF815E /* BuiltinStubProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuiltinStubProvider.swift; sourceTree = "<group>"; };
+		E0101A852234A38200CF815E /* StubbableProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubbableProvider.swift; sourceTree = "<group>"; };
+		OBJ_10 /* EnumStubProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumStubProvider.swift; sourceTree = "<group>"; };
 		OBJ_11 /* Injector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injector.swift; sourceTree = "<group>"; };
 		OBJ_12 /* StubKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubKit.swift; sourceTree = "<group>"; };
 		OBJ_13 /* Stubbable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stubbable.swift; sourceTree = "<group>"; };
@@ -102,6 +108,16 @@
 			path = DefaultStubbable;
 			sourceTree = "<group>";
 		};
+		E0101A822234A04C00CF815E /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+				OBJ_10 /* EnumStubProvider.swift */,
+				E0101A852234A38200CF815E /* StubbableProvider.swift */,
+				E0101A832234A06900CF815E /* BuiltinStubProvider.swift */,
+			);
+			path = Provider;
+			sourceTree = "<group>";
+		};
 		OBJ_14 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,7 +147,7 @@
 			name = Products;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -140,7 +156,6 @@
 				OBJ_19 /* script */,
 				OBJ_20 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_7 /* Sources */ = {
@@ -155,10 +170,11 @@
 			isa = PBXGroup;
 			children = (
 				OBJ_9 /* Decoders.swift */,
-				OBJ_10 /* EnumStub.swift */,
 				OBJ_11 /* Injector.swift */,
 				OBJ_12 /* StubKit.swift */,
 				OBJ_13 /* Stubbable.swift */,
+				E0101A7E2234981F00CF815E /* StubProvider.swift */,
+				E0101A822234A04C00CF815E /* Provider */,
 				E00F66C4222D59D600D22C68 /* DefaultStubbable */,
 			);
 			name = StubKit;
@@ -230,7 +246,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_20 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -248,11 +264,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
+				E0101A7F2234981F00CF815E /* StubProvider.swift in Sources */,
 				E00F66C7222D59F100D22C68 /* Number.swift in Sources */,
 				E00F66CB222D668600D22C68 /* Misc.swift in Sources */,
 				OBJ_28 /* Decoders.swift in Sources */,
-				OBJ_29 /* EnumStub.swift in Sources */,
+				E0101A862234A38300CF815E /* StubbableProvider.swift in Sources */,
+				OBJ_29 /* EnumStubProvider.swift in Sources */,
 				OBJ_30 /* Injector.swift in Sources */,
+				E0101A842234A06900CF815E /* BuiltinStubProvider.swift in Sources */,
 				E00F66C9222D65C500D22C68 /* String.swift in Sources */,
 				OBJ_31 /* StubKit.swift in Sources */,
 				OBJ_32 /* Stubbable.swift in Sources */,

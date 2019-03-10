@@ -1,4 +1,4 @@
-struct EnumStub {
+struct EnumStubProvider: StubProvider {
 
     /// Check if `type` is a Enum type.
     /// Notes: `Any.Type` means pointer to type metadata.
@@ -97,9 +97,9 @@ struct EnumStub {
     ///
     /// - Parameter type: The `Enum` type that does not have associated values.
     /// - Returns: A stub of `T`
-    static func stub<T>(_ type: T.Type) throws -> T {
-        guard isEnum(type) else { throw Error.notEnumType(T.self) }
-        switch enumKind(type) {
+    static func stub<T>(of type: T.Type) throws -> T {
+        guard EnumStubProvider.isEnum(type) else { throw Error.notEnumType(T.self) }
+        switch EnumStubProvider.enumKind(type) {
         case .noPayload:
             let rawPointer = withUnsafePointer(to: 0) { UnsafeRawPointer($0) }
             return rawPointer.assumingMemoryBound(to: T.self).pointee
@@ -108,5 +108,9 @@ struct EnumStub {
         case .noCases:
             throw Error.notSupportingNoCasesEnum(type)
         }
+    }
+
+    func stub<T>(of type: T.Type) -> T? {
+        return try? EnumStubProvider.stub(of: type)
     }
 }

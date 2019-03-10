@@ -30,16 +30,20 @@ public struct Stub<T: Decodable> {
         set { context.maxDepth = newValue }
     }
 
-    init(type: T.Type, context: StubDecoderContext) {
-        self.decoder = StubDecoder(codingPath: [], context: context, parentTypes: [])
+    init(type: T.Type, provider: StubProvider, context: StubDecoderContext) {
+        self.decoder = StubDecoder(codingPath: [], provider: provider, context: context, parentTypes: [])
         self.context = context
     }
 
     /// Initialize a new `Stub` instance.
     ///
     /// - Parameter type: The type of the entity you want to stub.
-    public init(type: T.Type = T.self) {
-        self.init(type: type, context: .init(maxSequenceLength: 60, maxDepth: 2))
+    public init(type: T.Type = T.self, provider: [StubProvider] = []) {
+        self.init(
+            type: type,
+            provider: provider + [BuiltinStubProvider()],
+            context: .init(maxSequenceLength: 60, maxDepth: 2)
+        )
     }
 
     /// Make a stub of `T`.
