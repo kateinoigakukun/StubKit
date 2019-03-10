@@ -142,6 +142,14 @@ struct StubKeyedDecodingContainer<Key: CodingKey>: KeyedDecodingContainerProtoco
     let context: StubDecoderContext
     let parentTypes: [Any.Type]
 
+    // Workaround: This initializer is not necessary but compiler crashes with type parameter and default value. (https://bugs.swift.org/browse/SR-10075)
+    init(codingPath: [CodingKey], provider: StubProvider, context: StubDecoderContext, parentTypes: [Any.Type]) {
+        self.codingPath = codingPath
+        self.context = context
+        self.parentTypes = parentTypes
+        self.provider = provider
+    }
+
     func contains(_ key: Key) -> Bool {
         return true
     }
