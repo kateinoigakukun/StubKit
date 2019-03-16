@@ -59,6 +59,25 @@ extension URL: Stubbable {
 }
 ```
 
+### Advanced Usage
+
+```swift
+
+struct RandomIntStubProvider: StubProvider {
+    func stub<T>(of type: T.Type) -> T? {
+        if type is Int.Type {
+            return Int.random(in: 0..<100) as? T
+        }
+        return nil
+    }
+}
+
+let userStub = Stub(type: User.self, provider: [RandomIntStubProvider()])
+try userStub.make() // User(id: 97)
+try userStub.make() // User(id: 54)
+try userStub.make() // User(id: 12)
+```
+
 
 ## How does it work
 
