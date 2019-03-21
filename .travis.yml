@@ -7,8 +7,8 @@ matrix:
       - SWIFT_VERSION=$SWIFT_DOWNLOAD_VERSION
     - os: linux
       env:
-      - SWIFT_DOWNLOAD_VERSION=https://swift.org/builds/swift-5.0-branch/ubuntu1404/swift-5.0-DEVELOPMENT-SNAPSHOT-2019-02-23-a/swift-5.0-DEVELOPMENT-SNAPSHOT-2019-02-23-a-ubuntu14.04.tar.gz
-      - SWIFT_VERSION=5.0-DEVELOPMENT-SNAPSHOT-2019-02-23-a
+      - SWIFT_DOWNLOAD_VERSION=https://swift.org/builds/development/ubuntu1404/swift-DEVELOPMENT-SNAPSHOT-2019-03-17-a/swift-DEVELOPMENT-SNAPSHOT-2019-03-17-a-ubuntu14.04.tar.gz
+      - SWIFT_VERSION=DEVELOPMENT-SNAPSHOT-2019-03-17-a
     - os: osx
       osx_image: xcode10
       env:
@@ -17,8 +17,8 @@ matrix:
     - os: osx
       osx_image: xcode10
       env:
-      - SWIFT_DOWNLOAD_VERSION=https://swift.org/builds/swift-5.0-branch/xcode/swift-5.0-DEVELOPMENT-SNAPSHOT-2019-02-23-a/swift-5.0-DEVELOPMENT-SNAPSHOT-2019-02-23-a-osx.pkg
-      - SWIFT_VERSION=5.0-DEVELOPMENT-SNAPSHOT-2019-02-23-a
+      - SWIFT_DOWNLOAD_VERSION=https://swift.org/builds/development/xcode/swift-DEVELOPMENT-SNAPSHOT-2019-03-17-a/swift-DEVELOPMENT-SNAPSHOT-2019-03-17-a-osx.pkg
+      - SWIFT_VERSION=DEVELOPMENT-SNAPSHOT-2019-03-17-a
 sudo: required
 dist: trusty
 install:
