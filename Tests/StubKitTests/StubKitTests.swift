@@ -48,7 +48,7 @@ class InjectorTests: XCTestCase {
         let injector = Stub<Item>.Injector()
         injector.set(\.description, value: "description")
         XCTAssertThrowsError(try injector.inject(to: item)) { error in
-            guard let injectionError = error as? Stub<Item>.InjectionError else {
+            guard let injectionError = error as? InjectionError else {
                 XCTFail(String(describing: error))
                 return
             }
