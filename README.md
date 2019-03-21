@@ -34,8 +34,8 @@ struct User: Codable {
   let sex: Sex
 }
 
-// User(id: 1234, name: "This is Stub String", sex: .female)
 let stubUser = try Stub.make(User.self)
+// User(id: 1234, name: "This is Stub String", sex: .female)
 ```
 
 ### Customize property
@@ -52,11 +52,14 @@ let maleUser = try Stub.make(User.self) {
 
 If you want to customize the default stub value, please conform `Stubbable`.
 ```swift
-extension URL: Stubbable {
-  static func stub() -> URL {
-    return URL(string: "https://example.com")!
+extension String: Stubbable {
+  static func stub() -> String {
+    return "This is custommized Stub String"
   }
 }
+
+let stubUser = try Stub.make(User.self)
+// User(id: 1234, name: "This is customized Stub String", sex: .female)
 ```
 
 ### Advanced Usage
@@ -84,6 +87,7 @@ try userStub.make() // User(id: 12)
 StubKit mainly uses two techniques.
 - Traverse using `Decoder` protocol.
 - Inject value with non-mutable `KeyPath`.
+- Existential type using `Self`.
 
 ### Traverse struct using `Decoder` protocol
 ![](./resources/tree.png)
@@ -94,3 +98,8 @@ Swift has `Decodable` protocol and if a type conforms to `Decodable`, Swift comp
 ### Inject value with non-mutable `KeyPath`
 
 I know it's only natural but, Swift can't mutate `let` defined property. But Swift has `MemoryLayout<T>.offset` which provide the offset to the property from its own address. So actually in memory we can mutate `let` property.
+
+
+### Existential type using `Self`
+
+A protocol that has `associatedtype` or uses `Self` type can't be existential type. But using `Self` for return type of method is only available in Swift4.2. (I think using `Self` for type of getter should be also available.) This technique makes `Stubbale` type-safely.
