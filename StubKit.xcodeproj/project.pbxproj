@@ -75,7 +75,7 @@
 		OBJ_19 /* script */ = {isa = PBXFileReference; lastKnownFileType = folder; path = script; sourceTree = SOURCE_ROOT; };
 		OBJ_6 /* Package.swift */ = {isa = PBXFileReference; explicitFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		OBJ_9 /* Decoders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decoders.swift; sourceTree = "<group>"; };
-		"StubKit::StubKit::Product" /* StubKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = StubKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		"StubKit::StubKit::Product" /* StubKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StubKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		"StubKit::StubKitTests::Product" /* StubKitTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; path = StubKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -244,6 +244,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = OBJ_5;
@@ -375,6 +376,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_SWIFT_FLAGS = "-DXcode";
@@ -414,6 +416,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_OPTIMIZATION_LEVEL = s;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_SWIFT_FLAGS = "-DXcode";
 				PRODUCT_NAME = "$(TARGET_NAME)";
