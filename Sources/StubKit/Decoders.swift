@@ -108,7 +108,7 @@ struct StubUnkeyedDecodingContainer: UnkeyedDecodingContainer {
         defer { advance() }
 
         // If `parentTypes` contains `T.Type`, `T` may require `T` to decode self.
-        if parentTypes.contains(where: { $0 == (T.self as Any.Type) }) {
+        if parentTypes.contains(where: { $0 == (T.self as Any.Type) }) && codingPath.count >= context.maxDepth {
             throw StubDecodingError.notConformingToStubbable(T.self)
         }
         let decoder = StubDecoder(codingPath: codingPath, provider: provider, context: context, parentTypes: parentTypes + [T.self])
@@ -163,7 +163,7 @@ struct StubKeyedDecodingContainer<Key: CodingKey>: KeyedDecodingContainerProtoco
 
     func decode<T>(_ type: T.Type, forKey key: Key) throws -> T where T: Decodable {
         // If `parentTypes` contains `T.Type`, `T` may require `T` to decode self.
-        if parentTypes.contains(where: { $0 == (T.self as Any.Type) }) {
+        if parentTypes.contains(where: { $0 == (T.self as Any.Type) }) && codingPath.count >= context.maxDepth {
             throw StubDecodingError.notConformingToStubbable(T.self)
         }
         let decoder = StubDecoder(codingPath: codingPath + [key], provider: provider, context: context, parentTypes: parentTypes + [T.self])

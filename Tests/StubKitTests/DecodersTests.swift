@@ -60,6 +60,18 @@ class StubKeyedDecodingContainerTests: XCTestCase {
         }
     }
 
+    func testEscapableRecursiveStructure() {
+        struct Item: Decodable, Equatable {
+            let children: [Item]
+        }
+
+        do {
+            _ = try Stub.make(Item.self)
+        } catch {
+            XCTFail(String(describing: error))
+        }
+    }
+
     func testDecodeUndecodableEnum() {
         enum UndecodableEnum: String, Codable {
             case case1
