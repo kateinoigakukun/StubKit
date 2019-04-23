@@ -81,6 +81,29 @@ try userStub.make() // User(id: 54)
 try userStub.make() // User(id: 12)
 ```
 
+### Need to conform non-final class as Stubbable?
+
+You can make it `Stubbable` by defining the `UnsafeStubbable`.
+
+```swift
+public protocol UnsafeStubbable: Stubbable {
+    associatedtype Target = Self
+    static func unsafeStub() -> Target
+}
+
+extension UnsafeStubbable {
+    public static func stub() -> Self {
+        return unsafeStub() as! Self
+    }
+}
+
+extension UIImage: UnsafeStubbable {
+    public static func unsafeStub() -> UIImage {
+        return #imageLiteral(resourceName: "dummy")
+    }
+}
+```
+
 
 ## How does it work
 
