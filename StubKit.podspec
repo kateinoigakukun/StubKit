@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.description  = "StubKit is a smart stubbing system."
   s.homepage     = "https://github.com/kateinoigakukun/StubKit"
   s.license      = "MIT"
-  s.author             = { "Yuta Saito" => "kateinoigakukun@gmail.com" }
+  s.author       = { "Yuta Saito" => "kateinoigakukun@gmail.com" }
   s.source       = { :git => "https://github.com/kateinoigakukun/StubKit", :tag => "#{s.version}" }
-  s.source_files  = ["Sources/**/*.swift"]
+  s.source_files = ["Sources/**/*.swift"]
 end
