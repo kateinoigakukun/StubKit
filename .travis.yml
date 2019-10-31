@@ -9,6 +9,10 @@ matrix:
       env:
       - SWIFT_DOWNLOAD_VERSION=5.0
       - SWIFT_VERSION=$SWIFT_DOWNLOAD_VERSION
+    - os: linux
+      env:
+      - SWIFT_DOWNLOAD_VERSION=5.1.1
+      - SWIFT_VERSION=$SWIFT_DOWNLOAD_VERSION
     - os: osx
       osx_image: xcode10
       env:
@@ -18,6 +22,11 @@ matrix:
       osx_image: xcode10
       env:
       - SWIFT_DOWNLOAD_VERSION=5.0
+      - SWIFT_VERSION=$SWIFT_DOWNLOAD_VERSION
+    - os: osx
+      osx_image: xcode11.2
+      env:
+      - SWIFT_DOWNLOAD_VERSION=5.1
       - SWIFT_VERSION=$SWIFT_DOWNLOAD_VERSION
 sudo: required
 dist: trusty
