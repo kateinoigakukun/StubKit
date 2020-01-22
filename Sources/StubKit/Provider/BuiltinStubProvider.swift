@@ -10,9 +10,24 @@ struct BuiltinStubProvider: StubProvider {
     }
 }
 
-struct CompositStubProvider: StubProvider {
+struct CompositStubProviderWith<Primary: StubProvider>: StubProvider {
+    let primaryProvider: Primary
     let providers: [StubProvider]
+    let isProvidersEmpty: Bool
+
+    init(primaryProvider: Primary, providers: [StubProvider]) {
+        self.primaryProvider = primaryProvider
+        self.providers = providers
+        self.isProvidersEmpty = providers.isEmpty
+    }
     func stub<T>(of type: T.Type) -> T? {
-        providers.lazy.compactMap { $0.stub(of: T.self) }.first
+        // fast path
+        if let stub = primaryProvider.stub(of: T.self) {
+            return stub
+        }
+        if isProvidersEmpty { return nil }
+
+        // slow path
+        return providers.lazy.compactMap { $0.stub(of: T.self) }.first
     }
 }
