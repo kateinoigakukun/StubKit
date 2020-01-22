@@ -14,6 +14,17 @@ final class StubKitTests: XCTestCase {
         stub.maxSequenceLength = maxSequenceLength
         XCTAssertEqual(stub.maxSequenceLength, maxSequenceLength)
     }
+
+    func testRecursivePerformance() {
+        struct Item: Decodable {
+            let subItems: [Item]
+        }
+        self.measure {
+            for _ in 0..<100 {
+                _ = try! Stub.make(Item.self)
+            }
+        }
+    }
 }
 
 class InjectorTests: XCTestCase {

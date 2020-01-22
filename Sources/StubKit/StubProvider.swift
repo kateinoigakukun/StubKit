@@ -7,9 +7,3 @@ public protocol StubProvider {
     func stub<T>(of type: T.Type) -> T?
 }
 
-extension Array: StubProvider where Element == StubProvider {
-    public func stub<T>(of type: T.Type) -> T? {
-        return lazy.compactMap { $0.stub(of: type) }.first
-    }
-}
-

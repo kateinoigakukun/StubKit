@@ -101,8 +101,9 @@ struct EnumStubProvider: StubProvider {
         guard EnumStubProvider.isEnum(type) else { throw Error.notEnumType(T.self) }
         switch EnumStubProvider.enumKind(type) {
         case .noPayload:
-            let rawPointer = withUnsafePointer(to: 0) { UnsafeRawPointer($0) }
-            return rawPointer.assumingMemoryBound(to: T.self).pointee
+            return withUnsafePointer(to: 0) {
+                UnsafeRawPointer($0).assumingMemoryBound(to: T.self).pointee
+            }
         case .payload:
             throw Error.notSupportingPayloadEnum(type)
         case .noCases:
