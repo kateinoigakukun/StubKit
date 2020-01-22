@@ -41,7 +41,7 @@ public struct Stub<T: Decodable> {
     public init(type: T.Type = T.self, provider: [StubProvider] = []) {
         self.init(
             type: type,
-            provider: provider + [BuiltinStubProvider()],
+            provider: CompositStubProvider(providers: provider + [BuiltinStubProvider()]),
             context: .init(maxSequenceLength: 60, maxDepth: 2)
         )
     }
