@@ -1,5 +1,6 @@
 Pod::Spec.new do |s|
-  s.name           = "StubKit"
+  s.name           = "SwiftStubKit"
+  s.module_name    = "StubKit"
   s.version        = "0.1.2"
   s.summary        = "A smart stubbing system."
   s.description    = "StubKit is a smart stubbing system."
