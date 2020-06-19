@@ -25,6 +25,17 @@ extension Stub {
             }
         }
 
+        /// Set `var` property as `value`
+        ///
+        /// - Parameters:
+        ///   - keyPath: The `WritableKeyPath` of the property you want to set.
+        ///   - value: The value you want to set.
+        public func set<U>(_ keyPath: WritableKeyPath<T, U>, value: U) {
+            mutations.append { instance in
+                instance[keyPath: keyPath] = value
+            }
+        }
+
         func inject(to instance: T) throws -> T {
             var instance = instance
             try mutations.forEach { mutation in
