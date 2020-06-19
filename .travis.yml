@@ -15,8 +15,8 @@ matrix:
       - SWIFT_VERSION=$SWIFT_DOWNLOAD_VERSION
     - os: linux
       env:
-      - SWIFT_DOWNLOAD_VERSION=5.2.4
-      - SWIFT_VERSION=$SWIFT_DOWNLOAD_VERSION
+      - SWIFT_DOWNLOAD_VERSION=https://swift.org/builds/swift-5.2.4-release/ubuntu1604/swift-5.2.4-RELEASE/swift-5.2.4-RELEASE-ubuntu16.04.tar.gz
+      - SWIFT_VERSION=5.2.4-RELEASE
     - os: osx
       osx_image: xcode10
       env:
@@ -35,10 +35,10 @@ matrix:
     - os: osx
       osx_image: xcode11.5
       env:
-      - SWIFT_DOWNLOAD_VERSION=5.2.4
-      - SWIFT_VERSION=$SWIFT_DOWNLOAD_VERSION
+      - SWIFT_DOWNLOAD_VERSION=https://swift.org/builds/swift-5.2.4-release/xcode/swift-5.2.4-RELEASE/swift-5.2.4-RELEASE-osx.pkg
+      - SWIFT_VERSION=5.2.4-RELEASE
 sudo: required
-dist: trusty
+dist: xenial
 install:
 - git clone https://github.com/kylef/swiftenv.git ~/.swiftenv
 - export SWIFTENV_ROOT="$HOME/.swiftenv"
