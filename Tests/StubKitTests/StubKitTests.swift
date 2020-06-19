@@ -28,10 +28,32 @@ final class StubKitTests: XCTestCase {
 }
 
 class InjectorTests: XCTestCase {
+    
+    @propertyWrapper
+    struct Validated: Decodable {
+        var wrappedValue: Int
+    }
+    
+    @propertyWrapper
+    struct ReadOnly: Decodable {
+        let wrappedValue: Int
+    }
 
     struct Item: Decodable {
         let id: Int
         var name: String
+        @Validated
+        var price: Int
+
+        @ReadOnly
+        var rating: Int
+        
+        init(id: Int, name: String, price: Int, rating: Int = 5) {
+            self.id = id
+            self.name = name
+            self.price = price
+            self._rating = ReadOnly(wrappedValue: rating)
+        }
 
         var description: String {
             return id.description + name
@@ -39,7 +61,7 @@ class InjectorTests: XCTestCase {
     }
 
     func testLetInjection() throws {
-        let item = Item(id: 1, name: "foo")
+        let item = Item(id: 1, name: "foo", price: 100)
         let injector = Stub<Item>.Injector()
         injector.set(\.id, value: 2)
         let injectedItem = try injector.inject(to: item)
@@ -47,24 +69,52 @@ class InjectorTests: XCTestCase {
     }
 
     func testVarInjection() throws {
-        let item = Item(id: 1, name: "foo")
+        let item = Item(id: 1, name: "foo", price: 100)
         let injector = Stub<Item>.Injector()
         injector.set(\.name, value: "bar")
         let injectedItem = try injector.inject(to: item)
         XCTAssertEqual(injectedItem.name, "bar")
     }
 
-    func testUnsupportedInjection() throws {
-        let item = Item(id: 1, name: "foo")
+    func testMutablePropertyWrapperInjection() throws {
+        let item = Item(id: 1, name: "foo", price: 100)
         let injector = Stub<Item>.Injector()
-        injector.set(\.description, value: "description")
-        XCTAssertThrowsError(try injector.inject(to: item)) { error in
-            guard let injectionError = error as? InjectionError else {
-                XCTFail(String(describing: error))
-                return
-            }
-            switch injectionError {
-            case .unsupportedProperty: break
+        injector.set(\.price, value: 1)
+        let injectedItem = try injector.inject(to: item)
+        XCTAssertEqual(injectedItem.price, 1)
+    }
+
+    func testUnsupportedInjection() throws {
+        typealias Injection = (
+            line: UInt,
+            run: () throws -> Void
+        )
+        let injections: [Injection] = [
+            (#line, {
+                // Computed property is not supported
+                let item = Item(id: 1, name: "foo", price: 100)
+                let injector = Stub<Item>.Injector()
+                injector.set(\.description, value: "description")
+                _ = try injector.inject(to: item)
+            }),
+            (#line, {
+                // Read-only property wrapper is not supported
+                let item = Item(id: 1, name: "foo", price: 100)
+                let injector = Stub<Item>.Injector()
+                injector.set(\.rating, value: 3)
+                _ = try injector.inject(to: item)
+            })
+        ]
+
+        for injection in injections {
+            XCTAssertThrowsError(try injection.run(), line: injection.line) { error in
+                guard let injectionError = error as? InjectionError else {
+                    XCTFail(String(describing: error))
+                    return
+                }
+                switch injectionError {
+                case .unsupportedProperty: break
+                }
             }
         }
     }

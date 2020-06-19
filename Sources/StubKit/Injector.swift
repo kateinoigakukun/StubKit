@@ -15,7 +15,8 @@ extension Stub {
         public func set<U>(_ keyPath: KeyPath<T, U>, value: U) {
             mutations.append { instance in
                 guard let offset = MemoryLayout<T>.offset(of: keyPath) else {
-                    throw InjectionError.unsupportedProperty(keyPath: keyPath, message: "Class, computed property and `didSet` are not supported.")
+                    throw InjectionError.unsupportedProperty(
+                        keyPath: keyPath, message: "Class, computed property, read-only property wrapper and `didSet` are not supported.")
                 }
                 withUnsafeMutableBytes(of: &instance) { bytes in
                     let rawPointerToValue = bytes.baseAddress! + offset
