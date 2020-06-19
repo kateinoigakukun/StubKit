@@ -28,7 +28,7 @@ final class StubKitTests: XCTestCase {
 }
 
 class InjectorTests: XCTestCase {
-    
+    #if compiler(>=5.1)
     @propertyWrapper
     struct Validated: Decodable {
         var wrappedValue: Int
@@ -38,21 +38,26 @@ class InjectorTests: XCTestCase {
     struct ReadOnly: Decodable {
         let wrappedValue: Int
     }
+    #endif
 
     struct Item: Decodable {
         let id: Int
         var name: String
+
+        #if compiler(>=5.1)
         @Validated
         var price: Int
-
         @ReadOnly
         var rating: Int
+        #endif
         
         init(id: Int, name: String, price: Int, rating: Int = 5) {
             self.id = id
             self.name = name
+            #if compiler(>=5.1)
             self.price = price
             self._rating = ReadOnly(wrappedValue: rating)
+            #endif
         }
 
         var description: String {
@@ -76,6 +81,7 @@ class InjectorTests: XCTestCase {
         XCTAssertEqual(injectedItem.name, "bar")
     }
 
+    #if compiler(>=5.1)
     func testMutablePropertyWrapperInjection() throws {
         let item = Item(id: 1, name: "foo", price: 100)
         let injector = Stub<Item>.Injector()
@@ -83,13 +89,14 @@ class InjectorTests: XCTestCase {
         let injectedItem = try injector.inject(to: item)
         XCTAssertEqual(injectedItem.price, 1)
     }
+    #endif
 
     func testUnsupportedInjection() throws {
         typealias Injection = (
             line: UInt,
             run: () throws -> Void
         )
-        let injections: [Injection] = [
+        var injections: [Injection] = [
             (#line, {
                 // Computed property is not supported
                 let item = Item(id: 1, name: "foo", price: 100)
@@ -97,6 +104,10 @@ class InjectorTests: XCTestCase {
                 injector.set(\.description, value: "description")
                 _ = try injector.inject(to: item)
             }),
+        ]
+
+        #if compiler(>=5.1)
+        injections.append(
             (#line, {
                 // Read-only property wrapper is not supported
                 let item = Item(id: 1, name: "foo", price: 100)
@@ -104,8 +115,8 @@ class InjectorTests: XCTestCase {
                 injector.set(\.rating, value: 3)
                 _ = try injector.inject(to: item)
             })
-        ]
-
+        )
+        #endif
         for injection in injections {
             XCTAssertThrowsError(try injection.run(), line: injection.line) { error in
                 guard let injectionError = error as? InjectionError else {
