@@ -59,10 +59,10 @@ public struct Stub<T: Decodable> {
     /// - Returns: A stub of `T`.
     /// - Throws: `StubDecodingError.notConformingToStubbable` if leaf of `T` does not conform to `Stubbable`.
     /// - Throws: `InjectionError.unsupportedProperty` if you try to inject unsupported property type like `didSet`.
-    public func make(_ mutation: (Injector) -> Void = { _ in }) throws -> T {
+    public func make(_ mutation: (Injector) throws -> Void = { _ in }) throws -> T {
         let instance = try decoder.stub(of: T.self)
         let injector = Injector()
-        mutation(injector)
+        try mutation(injector)
         return try injector.inject(to: instance)
     }
 
@@ -72,7 +72,7 @@ public struct Stub<T: Decodable> {
     /// - Parameter mutation: Mutation for stub entity.
     /// - Returns: A stub of `T`.
     /// - Throws: `StubDecodingError.notConformingToStubbable` if leaf of `T` does not conform to `Stubbable`.
-    public static func make(_ type: T.Type = T.self, _ mutation: (Injector) -> Void = { _ in }) throws -> T {
+    public static func make(_ type: T.Type = T.self, _ mutation: (Injector) throws -> Void = { _ in }) throws -> T {
         return try Stub(type: type).make(mutation)
     }
 }

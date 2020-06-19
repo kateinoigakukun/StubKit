@@ -20,14 +20,14 @@ struct CompositStubProviderWith<Primary: StubProvider>: StubProvider {
         self.providers = providers
         self.isProvidersEmpty = providers.isEmpty
     }
-    func stub<T>(of type: T.Type) -> T? {
+    func stub<T>(of type: T.Type) throws -> T? {
         // fast path
-        if let stub = primaryProvider.stub(of: T.self) {
+        if let stub = try primaryProvider.stub(of: T.self) {
             return stub
         }
         if isProvidersEmpty { return nil }
 
         // slow path
-        return providers.lazy.compactMap { $0.stub(of: T.self) }.first
+        return try providers.lazy.compactMap { try $0.stub(of: T.self) }.first
     }
 }

@@ -25,7 +25,7 @@ struct StubDecoder: Decoder {
     }
     
     func stub<T: Decodable>(of type: T.Type) throws -> T {
-        if let stub = provider.stub(of: type) { return stub }
+        if let stub = try provider.stub(of: type) { return stub }
         return try T(from: self)
     }
 }
