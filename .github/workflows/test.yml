@@ -16,7 +16,7 @@ jobs:
     name: Build and Test on Native
     strategy:
       matrix:
-        swift-version: [4.2, 5.0, 5.1, 5.2, 5.3]
+        swift-version: ["4.2", "5.0", "5.1", "5.2", "5.3"]
         os: [macOS-10.15, Ubuntu-18.04]
     runs-on: ${{ matrix.os }}
     steps:
