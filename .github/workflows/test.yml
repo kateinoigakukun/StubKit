@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: carton test
-  test_on_native:
+  test_on_Linux:
     name: Build and Test on Native
     strategy:
       matrix:
@@ -31,3 +31,25 @@ jobs:
         run: swiftenv install "${{ matrix.swift-version }}" --skip-existing
       - run: swift --version
       - run: swift test
+  test_on_macOS:
+    name: Build and Test on Native
+    strategy:
+      matrix:
+        xcode-version:
+          - /Applications/Xcode_10.3.app
+          - /Applications/Xcode_11.app
+          - /Applications/Xcode_11.4.1.app
+          - /Applications/Xcode_12.app
+    runs-on: macOS-10.15
+    steps:
+      - uses: actions/checkout@v2
+      - run: sudo xcode-select -s "${{ matrix.xcode-version }}"
+      - run: swift --version
+      - run: swift test
+  coverage:
+    name: Collect test coverage
+    runs-on: macOS-10.15
+    steps:
+      - uses: actions/checkout@v2
+      - run: xcodebuild -scheme StubKit -project StubKit.xcodeproj -sdk macosx -enableCodeCoverage YES build test
+      - uses: codecov/codecov-action@v1
