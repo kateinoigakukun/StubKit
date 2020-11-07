@@ -29,6 +29,6 @@ jobs:
           eval "$(swiftenv init -)"
           echo "$PATH" >> $GITHUB_PATH
       - name: Install Swift
-        run: swiftenv install "${{ matrix.swift-version }}"
+        run: swiftenv install "${{ matrix.swift-version }}" --skip-existing
       - run: swift --version
       - run: swift test
