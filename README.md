@@ -15,7 +15,7 @@ github "kateinoigakukun/StubKit"
 ### Using [CocoaPods](https://cocoapods.org/)
 
 ```
-pod "SwiftStubKit", :git => "https://github.com/kateinoigakukun/StubKit.git"
+pod "SwiftStubKit"
 ```
 
 ## Usage
