@@ -36,7 +36,6 @@ jobs:
     strategy:
       matrix:
         xcode-version:
-          - /Applications/Xcode_10.3.app
           - /Applications/Xcode_11.app
           - /Applications/Xcode_11.4.1.app
           - /Applications/Xcode_12.app
