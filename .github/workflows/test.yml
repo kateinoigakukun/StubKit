@@ -12,13 +12,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: carton test
-  test_on_macOS:
+  test_on_native:
     name: Build and Test on Native
     strategy:
       matrix:
         swift-version: ["4.2", "5.0", "5.1", "5.2", "5.3"]
-        os: [macOS-10.15, Ubuntu-18.04]
-    runs-on: ${{ matrix.os }}
+    runs-on: Ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
       - name: Setup swiftenv
