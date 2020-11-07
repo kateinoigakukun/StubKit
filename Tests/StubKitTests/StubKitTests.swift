@@ -15,6 +15,7 @@ final class StubKitTests: XCTestCase {
         XCTAssertEqual(stub.maxSequenceLength, maxSequenceLength)
     }
 
+    #if !os(WASI)
     func testRecursivePerformance() {
         struct Item: Decodable {
             let subItems: [Item]
@@ -25,6 +26,7 @@ final class StubKitTests: XCTestCase {
             }
         }
     }
+    #endif
 }
 
 class InjectorTests: XCTestCase {
