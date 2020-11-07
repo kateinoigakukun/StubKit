@@ -64,10 +64,12 @@ struct EnumStubProvider: StubProvider {
         /// Notes: Enum type metadata records a pointer to type descriptor which contains basic information like number of cases.
         /// References:
         ///   - https://github.com/apple/swift/blob/6e7051eb1e/docs/ABI/TypeMetadata.rst#nominal-type-descriptor
+        ///   - https://github.com/apple/swift/blob/main/include/swift/ABI/Metadata.h
         struct TypeDescriptor {
             let contextFlag: Int32
             let parent: Int32
-            let name: Int
+            let namePtr: Int32
+            let accessFunctionPtr: Int32
             #if compiler(>=5)
             let reflectionFieldDescriptor: Int32
             #endif
