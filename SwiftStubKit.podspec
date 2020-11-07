@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name           = "SwiftStubKit"
   s.module_name    = "StubKit"
-  s.version        = "0.1.6"
+  s.version        = "0.1.7"
   s.summary        = "A smart stubbing system."
   s.description    = "StubKit is a smart stubbing system."
   s.homepage       = "https://github.com/kateinoigakukun/StubKit"
