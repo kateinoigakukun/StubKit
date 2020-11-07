@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v2
       - run: carton test
   test_on_Linux:
-    name: Build and Test on Native
+    name: Build and Test on Linux
     strategy:
       matrix:
         swift-version: ["4.2", "5.0", "5.1", "5.2", "5.3"]
@@ -32,7 +32,7 @@ jobs:
       - run: swift --version
       - run: swift test
   test_on_macOS:
-    name: Build and Test on Native
+    name: Build and Test on macOS
     strategy:
       matrix:
         xcode-version:
