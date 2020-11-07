@@ -2,6 +2,8 @@
 
 ![Run unit tests](https://github.com/kateinoigakukun/StubKit/workflows/Run%20unit%20tests/badge.svg) [![codecov](https://codecov.io/gh/kateinoigakukun/StubKit/branch/main/graph/badge.svg?token=WqSnBYoNJq)](https://codecov.io/gh/kateinoigakukun/StubKit)
 
+![](https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20Linux%20%7C%20WebAssembly-blue)
+
 A smart stubbing system.
 
 ## Installation
