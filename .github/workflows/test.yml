@@ -16,7 +16,7 @@ jobs:
     name: Build and Test on Linux
     strategy:
       matrix:
-        swift-version: ["5.0", "5.1", "5.2", "5.3"]
+        swift-version: ["5.1", "5.2", "5.3"]
     runs-on: Ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -36,7 +36,6 @@ jobs:
     strategy:
       matrix:
         xcode-version:
-          - /Applications/Xcode_11.app
           - /Applications/Xcode_11.4.1.app
           - /Applications/Xcode_12.app
     runs-on: macOS-10.15
