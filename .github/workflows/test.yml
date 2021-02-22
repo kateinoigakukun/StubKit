@@ -16,7 +16,7 @@ jobs:
     name: Build and Test on Linux
     strategy:
       matrix:
-        swift-version: ["4.2", "5.0", "5.1", "5.2", "5.3"]
+        swift-version: ["5.0", "5.1", "5.2", "5.3"]
     runs-on: Ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -30,7 +30,7 @@ jobs:
       - name: Install Swift
         run: swiftenv install "${{ matrix.swift-version }}" --skip-existing
       - run: swift --version
-      - run: swift test
+      - run: swift test --enable-test-discovery
   test_on_macOS:
     name: Build and Test on macOS
     strategy:
