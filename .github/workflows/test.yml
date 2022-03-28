@@ -16,19 +16,12 @@ jobs:
     name: Build and Test on Linux
     strategy:
       matrix:
-        swift-version: ["5.1", "5.2", "5.3", "5.4", "5.5"]
-    runs-on: Ubuntu-18.04
+        swift-version: ["5.1", "5.2", "5.3", "5.4", "5.5", "5.6"]
+    runs-on: ubuntu-20.04
+    container:
+      image: swift:${{ matrix.swift-version }}
     steps:
       - uses: actions/checkout@v2
-      - name: Setup swiftenv
-        run: |
-          git clone https://github.com/kylef/swiftenv.git ~/.swiftenv
-          export SWIFTENV_ROOT="$HOME/.swiftenv"
-          export PATH="$SWIFTENV_ROOT/bin:$PATH"
-          eval "$(swiftenv init -)"
-          echo "$PATH" >> $GITHUB_PATH
-      - name: Install Swift
-        run: swiftenv install "${{ matrix.swift-version }}" --skip-existing
       - run: swift --version
       - run: swift test --enable-test-discovery
   test_on_macOS:
@@ -36,10 +29,11 @@ jobs:
     strategy:
       matrix:
         xcode-version:
-          - /Applications/Xcode_11.4.1.app
-          - /Applications/Xcode_12.app
+          - /Applications/Xcode_11.7.app
           - /Applications/Xcode_12.4.app
-    runs-on: macOS-10.15
+          - /Applications/Xcode_12.5.1.app
+          - /Applications/Xcode_13.2.1.app
+    runs-on: macOS-11
     steps:
       - uses: actions/checkout@v2
       - run: sudo xcode-select -s "${{ matrix.xcode-version }}"
@@ -47,7 +41,7 @@ jobs:
       - run: swift test
   coverage:
     name: Collect test coverage
-    runs-on: macOS-10.15
+    runs-on: macOS-11
     steps:
       - uses: actions/checkout@v2
       - run: xcodebuild -scheme StubKit -project StubKit.xcodeproj -sdk macosx -enableCodeCoverage YES build test
