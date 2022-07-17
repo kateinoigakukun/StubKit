@@ -8,6 +8,12 @@ A smart stubbing system.
 
 ## Installation
 
+### Using Swift Package Manager
+
+```
+.package(url: "https://github.com/kateinoigakukun/StubKit.git", from: "0.1.0"),
+```
+
 ### Using [Carthage](https://github.com/Carthage/Carthage)
 
 ```
