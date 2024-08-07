@@ -2,7 +2,7 @@ name: Run unit tests
 on:
   pull_request:
   push:
-    branches: [swift-version]
+    branches: [main]
 jobs:
   test_on_wasm:
     name: Build and Test on WebAssembly
